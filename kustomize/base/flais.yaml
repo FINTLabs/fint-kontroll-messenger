@@ -22,7 +22,7 @@ spec:
     basePath: '/beta/fintlabs-no/api/messaging'
     middlewares:
       - fint-kontroll-sso
-      -
+
   database:
     database: fint-kontroll
 
