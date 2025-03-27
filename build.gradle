@@ -9,7 +9,9 @@ group = 'no.fintlabs'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '23'
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+    }
 }
 
 configurations {
