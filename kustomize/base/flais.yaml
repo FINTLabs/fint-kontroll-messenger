@@ -3,23 +3,33 @@ kind: Application
 metadata:
   name: fint-kontroll-messenger
   namespace: fintlabs-no
+  labels:
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/name: fint-kontroll-messenger
+    app.kubernetes.io/instance: fint-kontroll-messenger_fintlabs-no
+
 spec:
   orgId: fintlabs.no
   image: ghcr.io/fintlabs/fint-kontroll-messenger:latest
   imagePullPolicy: Always
+
   url:
-    hostname: kontroll.vigoiks.no
-    basePath: /beta/fintlabs-no
+    hostname: 'kontroll.vigoiks.no'
+    basePath: '/beta/fintlabs-no'
+
   ingress:
     enabled: true
-    basePath: /beta/fintlabs-no/api/messaging
+    basePath: '/beta/fintlabs-no/api/messaging'
     middlewares:
       - fint-kontroll-sso
+      -
   database:
     database: fint-kontroll
+
   env:
     - name: fint.kontroll.authorization.authorized-org-id
       value: "vigo.no"
+
   envFrom:
     - secretRef:
         name: fint-kontroll-slack-secrets

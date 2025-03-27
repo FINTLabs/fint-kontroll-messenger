@@ -1,4 +1,5 @@
 fint:
+  org-id: fintlabs.no
   application-id: fint-kontroll-messenger
   kontroll:
     authorization:
@@ -11,8 +12,10 @@ spring:
   threads:
     virtual:
       enabled: true
+
   main:
     lazy-initialization: true
+
   security:
     oauth2:
       resourceserver:
