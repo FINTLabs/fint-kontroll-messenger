@@ -1,0 +1,56 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: afk-no
+resources:
+  - ../../../base
+commonLabels:
+  app.kubernetes.io/name: fint-kontroll-messenger
+  app.kubernetes.io/instance: fint-kontroll-messenger_bfk-no
+  app.kubernetes.io/version: latest
+  app.kubernetes.io/component: backend
+  app.kubernetes.io/part-of: fint-kontroll
+  fintlabs.no/team: bas
+  fintlabs.no/org-id: bfk.no
+patches:
+  - patch: |-
+      - op: replace
+        path: "/spec/orgId"
+        value: "bfk.no"
+      - op: replace
+        path: "/spec/env/0/value"
+        value: "bfk.no"
+      - op: replace
+        path: "/spec/ingress/basePath"
+        value: "/bfk-no/api/messaging"
+      - op: replace
+        path: "/spec/url/basePath"
+        value: "/bfk-no"
+      - op: replace
+        path: "/spec/observability/metrics/path"
+        value: "/bfk-no/actuator/prometheus"
+      - op: add
+        path: "/spec/resources"
+        value:
+          limits:
+            cpu: "2000m"
+            memory: "2000Mi"
+          requests:
+            cpu: "1000m"
+            memory: "2000Mi"
+      - op: add
+        path: "/spec/env/3"
+        value:
+          name: "JAVA_TOOL_OPTIONS"
+          value: "-XX:+ExitOnOutOfMemoryError -Xmx1870m"
+    target:
+      kind: Application
+      name: fint-kontroll-messenger
+
+  - patch: |-
+      - op: replace
+        path: "/spec/itemPath"
+        value: "vaults/aks-api-vault/items/kontroll-slack-bfk-no"
+    target:
+      kind: OnePasswordItem
+      name: fint-kontroll-slack-secrets
+

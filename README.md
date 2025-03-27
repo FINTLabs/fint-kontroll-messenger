@@ -1,19 +1,18 @@
-# FINT Spring Boot Template project
+# FINT Kontroll Messenger
 
-## Setting up a new project based on the template
-### Clone
-```shell
-git clone https://github.com/FINTLabs/fint-spring-boot-template-project.git <your project name>
-cd <your project name>
-rm -Rf .git
-git init
-```
+App for sending messages received through API or kafka
 
-Or press **Use this template** and setup your new repository
+### Swagger
+Locally: http://localhost:8080/swagger-ui/index.html
 
-### Update deployment files
-Update the following files to reflect your project
-* Dockerfile
-* k8s.yaml
-* Jenkins
+Beta w/portforward (update port with your own): http://localhost:53212/beta/fintlabs-no/swagger-ui/index.html
 
+### OpenAPI
+Lokalt: http://localhost:8080/v3/api-docs
+
+Beta w/portforward (update port with your own): http://localhost:53212/beta/fintlabs-no/v3/api-docs
+
+## Development
+
+### Update dependencies
+``` ./gradlew dependencyUpdates ```

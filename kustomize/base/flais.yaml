@@ -1,0 +1,31 @@
+apiVersion: fintlabs.no/v1alpha1
+kind: Application
+metadata:
+  name: fint-kontroll-messenger
+  namespace: fintlabs-no
+spec:
+  orgId: fintlabs.no
+  image: ghcr.io/fintlabs/fint-kontroll-messenger:latest
+  imagePullPolicy: Always
+  url:
+    hostname: kontroll.vigoiks.no
+    basePath: /beta/fintlabs-no
+  ingress:
+    enabled: true
+    basePath: /beta/fintlabs-no/api/messaging
+    middlewares:
+      - fint-kontroll-sso
+  database:
+    database: fint-kontroll
+  env:
+    - name: fint.kontroll.authorization.authorized-org-id
+      value: "vigo.no"
+  envFrom:
+    - secretRef:
+        name: fint-kontroll-slack-secrets
+
+  observability:
+    metrics:
+      enabled: true
+      port: "8080"
+      path: '/beta/fintlabs-no/actuator/prometheus'
