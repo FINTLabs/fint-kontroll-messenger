@@ -6,6 +6,9 @@ fint:
     application-id: ${fint.application-id}
 spring:
   kafka:
+    # Make sure messages are only consumed once
+    listener:
+      ack-mode: manual
     consumer:
       group-id: ${fint.application-id}
 #      group-id: test-group
