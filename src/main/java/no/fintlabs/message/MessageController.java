@@ -22,7 +22,7 @@ public class MessageController {
     public void sendMessage(@RequestParam String type, @RequestBody String message) {
         log.info("Sending message {} to {}", message, type);
 
-        if (type.equalsIgnoreCase("slack")) {
+        if (type.equalsIgnoreCase("slackinfo")) {
             slackMessenger.sendMessage(message);
         }
     }
@@ -31,7 +31,7 @@ public class MessageController {
     public void sendErrorMessage(@RequestParam String type, @RequestBody String message) {
         log.info("Sending error message {} to {}", message, type);
 
-        if (type.equalsIgnoreCase("slack")) {
+        if (type.equalsIgnoreCase("slackerror")) {
             slackMessenger.sendErrorMessage(message);
         }
     }
