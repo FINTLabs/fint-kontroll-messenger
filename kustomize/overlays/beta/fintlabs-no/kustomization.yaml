@@ -22,9 +22,13 @@ patches:
           requests:
             cpu: "1000m"
             memory: "1024Mi"
-            
+
       - op: replace
         path: "/spec/env/1/value"
+        value: "fintlabs-no"
+        
+      - op: replace
+        path: "/spec/env/2/value"
         value: "-XX:+ExitOnOutOfMemoryError -Xmx1950m"
     target:
       kind: Application

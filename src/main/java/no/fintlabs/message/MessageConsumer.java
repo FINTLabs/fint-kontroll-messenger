@@ -25,7 +25,7 @@ public class MessageConsumer {
 
     @KafkaListener(
             topics = "#{('${fint.kafka.topic.org-id}'.replace('.', '-') + '.' + '${fint.kafka.topic.domain-context}' + '.fint-kontroll-messages')}",
-            groupId = "${spring.kafka.consumer.group-id}"
+            groupId = "${fint.kafka.topic.org-id}"
     )
     public void listen(Message message, Acknowledgment ack) {
         try {

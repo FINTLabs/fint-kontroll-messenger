@@ -10,7 +10,7 @@ spring:
     listener:
       ack-mode: manual
     consumer:
-      group-id: ${fint.application-id}
+      group-id: 'fintlabs-no'
 #      group-id: test-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
