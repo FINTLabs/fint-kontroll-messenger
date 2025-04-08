@@ -16,6 +16,22 @@ patches:
       - op: replace
         path: "/spec/itemPath"
         value: "vaults/aks-beta-vault/items/kontroll-slack-beta-fintlabs-no"
+        
+      - op: add
+        path: "/spec/resources"
+        value:
+          limits:
+            cpu: "2000m"
+            memory: "2000Mi"
+          requests:
+            cpu: "1000m"
+            memory: "1024Mi"
+            
+      - op: add
+        path: "/spec/env/1"
+        value:
+          name: "JAVA_TOOL_OPTIONS"
+          value: "-XX:+ExitOnOutOfMemoryError -Xmx1950m"
     target:
       kind: OnePasswordItem
       name: fint-kontroll-slack-secrets
