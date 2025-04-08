@@ -13,10 +13,6 @@ commonLabels:
   fintlabs.no/org-id: fintlabs.no
 patches:
   - patch: |-
-      - op: replace
-        path: "/spec/itemPath"
-        value: "vaults/aks-beta-vault/items/kontroll-slack-beta-fintlabs-no"
-        
       - op: add
         path: "/spec/resources"
         value:
