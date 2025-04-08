@@ -27,11 +27,9 @@ patches:
             cpu: "1000m"
             memory: "1024Mi"
             
-      - op: add
-        path: "/spec/env/1"
-        value:
-          name: "JAVA_TOOL_OPTIONS"
-          value: "-XX:+ExitOnOutOfMemoryError -Xmx1950m"
+      - op: replace
+        path: "/spec/env/1/value"
+        value: "-XX:+ExitOnOutOfMemoryError -Xmx1950m"
     target:
       kind: OnePasswordItem
       name: fint-kontroll-slack-secrets

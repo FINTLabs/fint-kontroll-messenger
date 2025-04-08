@@ -37,6 +37,8 @@ spec:
   env:
     - name: fint.kontroll.authorization.authorized-org-id
       value: "vigo.no"
+    - name: JAVA_TOOL_OPTIONS
+      value: "-XX:+ExitOnOutOfMemoryError -Xms512m -Xmx912m"
 
   envFrom:
     - secretRef:
