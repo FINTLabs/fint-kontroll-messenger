@@ -31,5 +31,14 @@ patches:
         path: "/spec/env/1/value"
         value: "-XX:+ExitOnOutOfMemoryError -Xmx1950m"
     target:
+      kind: Application
+      name: fint-kontroll-messenger
+
+  - patch: |-
+      - op: replace
+        path: "/spec/itemPath"
+        value: "vaults/aks-beta-vault/items/kontroll-slack-beta-fintlabs-no"
+
+    target:
       kind: OnePasswordItem
       name: fint-kontroll-slack-secrets
