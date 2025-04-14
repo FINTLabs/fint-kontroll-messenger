@@ -1,0 +1,12 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+
+server:
+  port: 8098
+logging:
+  level:
+    root: INFO
+    org.apache.kafka: WARN
+    no.fintlabs.assignment: INFO
+    org.hibernate.SQL: INFO

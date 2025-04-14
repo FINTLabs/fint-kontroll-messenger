@@ -1,6 +1,5 @@
 fint:
   org-id: fintlabs.no
-  org-id-kafka: fintlabs-no
   application-id: fint-kontroll-messenger
   kontroll:
     opa:

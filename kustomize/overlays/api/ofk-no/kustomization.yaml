@@ -37,6 +37,15 @@ patches:
           requests:
             cpu: "1000m"
             memory: "2000Mi"
+            
+      - op: replace
+        path: "/spec/kafka/acls/0/topic"
+        value: "ofk-no.kontroll.*"
+      
+      - op: replace
+        path: "/spec/kafka/acls/1/topic"
+        value: "ofk-no.kontroll.*"
+        
       - op: add
         path: "/spec/env/3"
         value:

@@ -24,6 +24,10 @@ patches:
             memory: "1024Mi"
 
       - op: replace
+        path: "/spec/kafka/acls/0/topic"
+        value: "fintlabs-no.kontroll.*"
+        
+      - op: replace
         path: "/spec/env/1/value"
         value: "fintlabs-no"
         

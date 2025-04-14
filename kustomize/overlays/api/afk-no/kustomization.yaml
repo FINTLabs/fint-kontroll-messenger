@@ -15,19 +15,32 @@ patches:
   - patch: |-
       - op: replace
         path: "/spec/orgId"
-        value: "afk.no" 
+        value: "afk.no"
+        
       - op: replace
         path: "/spec/env/0/value"
-        value: "afk.no"        
+        value: "afk.no"
+        
       - op: replace
         path: "/spec/ingress/basePath"
         value: "/afk-no/api/messaging"
+        
       - op: replace
         path: "/spec/url/basePath"
         value: "/afk-no"
+        
+      - op: replace
+        path: "/spec/kafka/acls/0/topic"
+        value: "afk-no.kontroll.*"
+        
+      - op: replace
+        path: "/spec/kafka/acls/1/topic"
+        value: "afk-no.kontroll.*"
+        
       - op: replace
         path: "/spec/observability/metrics/path"
         value: "/afk-no/actuator/prometheus"
+        
       - op: add
         path: "/spec/resources"
         value:
@@ -37,6 +50,7 @@ patches:
           requests:
             cpu: "1000m"
             memory: "2000Mi"
+            
       - op: add
         path: "/spec/env/3"
         value:
