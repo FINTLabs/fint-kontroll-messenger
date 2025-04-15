@@ -3,6 +3,9 @@ package no.fintlabs.kafka.consuming;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import no.fintlabs.kafka.topic.EventTopicService;
+import no.fintlabs.kafka.topic.configuration.CleanupFrequency;
+import no.fintlabs.kafka.topic.configuration.EventTopicConfiguration;
 import no.fintlabs.kafka.topic.name.EventTopicNameParameters;
 import no.fintlabs.kafka.topic.name.TopicNamePrefixParameters;
 import no.fintlabs.message.Message;
@@ -14,15 +17,19 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+
 @Component
 @Slf4j
 @Lazy(value = false)
 public class MessengerKafkaConfiguration {
 
     private final SlackMessenger slackMessenger;
+    private final EventTopicService eventTopicService;
 
-    public MessengerKafkaConfiguration(SlackMessenger slackMessenger) {
+    public MessengerKafkaConfiguration(SlackMessenger slackMessenger, EventTopicService eventTopicService) {
         this.slackMessenger = slackMessenger;
+        this.eventTopicService = eventTopicService;
     }
 
     @Value("${spring.kafka.consumer.group-id}")
@@ -37,15 +44,22 @@ public class MessengerKafkaConfiguration {
                 .domainContextApplicationDefault()
                 .build();
 
-        ListenerConfiguration listenerConfiguration = ListenerConfiguration.builder()
-                .seekingOffsetResetOnAssignment(false)
-                .maxPollRecords(100)
-                .build();
-
         EventTopicNameParameters eventTopicNameParameters = EventTopicNameParameters
                 .builder()
                 .eventName("fint-kontroll-messenger")
                 .topicNamePrefixParameters(topicNamePrefixParameters)
+                .build();
+
+        EventTopicConfiguration eventTopicConfiguration = EventTopicConfiguration.builder()
+                .retentionTime(Duration.ZERO)
+                .cleanupFrequency(CleanupFrequency.NORMAL)
+                .build();
+
+        eventTopicService.createOrModifyTopic(eventTopicNameParameters, eventTopicConfiguration);
+
+        ListenerConfiguration listenerConfiguration = ListenerConfiguration.builder()
+                .seekingOffsetResetOnAssignment(false)
+                .maxPollRecords(100)
                 .build();
 
         ConcurrentMessageListenerContainer<String, Message> container = parameterizedListenerContainerFactoryService.createRecordListenerContainerFactory(
@@ -53,6 +67,7 @@ public class MessengerKafkaConfiguration {
                         this::processMessage,
                         listenerConfiguration)
                 .createContainer(eventTopicNameParameters);
+
         container.setAutoStartup(true);
 
         return container;
