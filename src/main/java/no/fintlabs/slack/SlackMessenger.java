@@ -2,9 +2,11 @@ package no.fintlabs.slack;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestTemplate;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Slf4j
 @Service
@@ -60,8 +62,13 @@ public class SlackMessenger {
 
         if (slackEnabled) {
             try {
-                restClient.post()
-                        .uri(slackUrl, slackMessage);
+                ResponseEntity<Void> response = restClient.post()
+                        .uri(slackUrl)
+                        .contentType(APPLICATION_JSON)
+                        .body(slackMessage)
+                        .retrieve()
+                        .toBodilessEntity();
+
                 return true;
             } catch (Exception e) {
                 log.warn("Unable to send Slack message " + slackMessage.text(), e);
