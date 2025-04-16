@@ -55,8 +55,8 @@ public class SlackMessenger {
     private boolean sendMessage(SlackMessage slackMessage) {
         log.info("Sending Slack message {}", slackMessage.text());
 
-        log.debug("Slack url: {}", slackUrl);
-        log.debug("Slack enabled: {}", slackEnabled);
+        log.info("Slack url: {}", slackUrl);
+        log.info("Slack enabled: {}", slackEnabled);
 
         if (slackEnabled) {
             try {
@@ -69,6 +69,8 @@ public class SlackMessenger {
         } else {
             log.info("Slack sending disabled, slack message {}", slackMessage);
         }
+
+        log.warn("Slack message not sent");
         return false;
     }
 }
